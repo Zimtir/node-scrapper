@@ -28,6 +28,7 @@ export enum Routes {
   status = "/status",
   endpoints = "/endpoints",
   swagger = "/swagger",
+  parseUsers = '/users/parse'
 }
 
 export interface CompressionPayload {

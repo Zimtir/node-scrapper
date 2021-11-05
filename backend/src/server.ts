@@ -1,9 +1,7 @@
-import { getStatus } from "./routes/status";
+import { routes } from "./routes";
 import { API_PREFIX, PORT } from "./tools/environment";
 import { loggerWithDate } from "./tools/logger";
 import { initExpress } from "./tools/setup";
-
-const routes = [getStatus()];
 
 initExpress(
   {

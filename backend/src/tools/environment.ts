@@ -22,3 +22,4 @@ export const isDevelopment = !!getEnvKey("IS_DEVELOPMENT");
 export const HOST = getEnvKey("HOST");
 export const PORT = getEnvKey("PORT");
 export const API_PREFIX = getEnvKey("API_PREFIX");
+export const API_EXTERNAL_USERS_URL = getEnvKey("API_EXTERNAL_USERS_URL");
