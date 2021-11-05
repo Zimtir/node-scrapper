@@ -1,12 +1,50 @@
-import express, { Request, Response } from "express";
+import { getStatus } from "./routes/status";
+import { API_PREFIX, PORT } from "./tools/environment";
+import { loggerWithDate } from "./tools/logger";
+import { initExpress } from "./tools/setup";
 
-const app = express();
-const port = 3000;
+const routes = [getStatus()];
 
-app.get("/", (_request: Request, response: Response) => {
-  response.send("");
-});
-
-app.listen(port, () => {
-  console.log(`server is listening on ${port}`);
-});
+initExpress(
+  {
+    bodyParser: {
+      enabled: true,
+    },
+    router: {
+      enabled: true,
+      prefix: API_PREFIX,
+      view: {
+        enabled: true,
+      },
+    },
+    errors: {
+      enabled: true,
+    },
+    listen: {
+      enabled: true,
+      callback: () => {
+        loggerWithDate(`Service started on port ${PORT}.`);
+      },
+    },
+    security: {
+      enabled: true,
+    },
+    static: {
+      enabled: true,
+      payload: {
+        path: "public",
+      },
+    },
+    compression: {
+      enabled: true,
+      payload: {
+        threshold: 0,
+      },
+    },
+    swagger: {
+      enabled: true,
+    },
+    port: parseInt(PORT, 10),
+  },
+  routes
+);
