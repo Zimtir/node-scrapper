@@ -6,6 +6,8 @@
     "moduleResolution": "node",
     "sourceMap": true,
     "resolveJsonModule": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "outDir": "dist"
   },
   "lib": ["esnext"]
