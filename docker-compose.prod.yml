@@ -1,0 +1,28 @@
+version: "3.7"
+
+services:
+  backend-prod:
+    build:
+      target: production
+    command: node dist/server.js
+    env_file: .env
+    environment:
+      - DB_HOST=database
+    ports:
+      - "8080:8080"
+    expose:
+      - "8080"
+    links:
+      - database
+    network_mode: bridge
+
+  database:
+    image: mysql:5.6
+    environment:
+      - MYSQL_DATABASE=task_manager
+      - MYSQL_ROOT_PASSWORD=secret
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./db-scripts:/docker-entrypoint-initdb.d
+    network_mode: bridge
