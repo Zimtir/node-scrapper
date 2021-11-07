@@ -7,7 +7,6 @@ import helmet from 'helmet'
 import { CompressionPayload, Setting, StaticPayload, ExpressConfiguration } from '../types'
 
 import { getError } from '../routes/error'
-import { Database } from '../database'
 import { Route, Responses } from '../routes/types'
 import { setupRoutes } from '../routes'
 
@@ -54,11 +53,7 @@ export const setupHelmet = (): RequestHandler =>
     contentSecurityPolicy: false,
   })
 
-export const initExpress = (
-  configuration: ExpressConfiguration,
-  routes: Route<unknown>[],
-  database: Database,
-): Server => {
+export const initExpress = (configuration: ExpressConfiguration, routes: Route<unknown>[]): Server => {
   const app = setupExpress()
 
   return app
@@ -76,7 +71,6 @@ export const initExpress = (
             app,
             view: configuration.router.view,
             swagger: configuration.swagger,
-            database,
           },
         },
         setupRoutes,

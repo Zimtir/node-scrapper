@@ -1,13 +1,13 @@
 import { isDevelopment } from './environment'
 
-export const logger = (args: unknown): void => {
+const LOGGER_PREFIX = 'LOGGER:'
+
+export const logger = (...args: unknown[]): void => {
   if (isDevelopment) {
-    console.log(args)
+    console.info(LOGGER_PREFIX, ...args)
   }
 }
 
-export const loggerWithDate = (args: unknown): void => {
-  if (isDevelopment) {
-    console.log(args, new Date())
-  }
+export const loggerWithDate = (...args: unknown[]): void => {
+  logger(...args, new Date())
 }

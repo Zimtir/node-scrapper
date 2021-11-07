@@ -1,5 +1,4 @@
 import { Express } from 'express'
-import { Database } from './database/types'
 
 export interface CompressionPayload {
   threshold: number
@@ -44,4 +43,4 @@ export interface HttpException extends Error {
   message: string
 }
 
-export type ServerInitial = (database: Database) => Promise<void>
+export type ServerInitial = () => Promise<void>

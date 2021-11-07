@@ -3,29 +3,16 @@ import { logger } from '../../tools'
 import { User as UserModel } from '../../routes/users/types'
 import { User as UserEntity } from '../entity/User'
 import { Repository } from './types'
+import { toEntity, toModel } from './fabric'
 
 export class UserRepository implements Repository<UserModel, UserEntity> {
-  // eslint-disable-next-line no-useless-constructor
-  constructor(private readonly connection: Connection) {}
+  toEntity: (user: UserModel) => UserEntity
 
-  toModel = (user: UserEntity): UserModel => ({
-    id: user.id,
-    email: user.email,
-    first_name: user.firstName,
-    last_name: user.lastName,
-    avatar: user.avatar,
-  })
+  toModel: (user: UserEntity) => UserModel
 
-  toEntity = (user: UserModel): UserEntity => {
-    const entity = new UserEntity()
-
-    entity.id = user.id
-    entity.email = user.email
-    entity.firstName = user.first_name
-    entity.lastName = user.last_name
-    entity.avatar = user.avatar
-
-    return entity
+  constructor(private readonly connection: Connection) {
+    this.toModel = toModel
+    this.toEntity = toEntity
   }
 
   getAll = async (): Promise<UserModel[]> => {
@@ -34,7 +21,7 @@ export class UserRepository implements Repository<UserModel, UserEntity> {
     const userEntities = await this.connection.manager.find(UserEntity)
     const userModels = userEntities.map(this.toModel)
 
-    console.log('Loaded count of users: ', userEntities.length)
+    logger(`Loaded count of users: ${userEntities.length}`)
 
     return userModels
   }

@@ -1,8 +1,7 @@
 import { Express, Request, Response } from 'express'
-import { Database } from '../database/types'
 import { Setting } from '../types'
 
-export type RouterCallback = <T>(request: Request, response: Response, database?: Database, option?: T) => void
+export type RouterCallback = <T>(request: Request, response: Response, option?: T) => void
 
 export const Responses = {
   OK: {
@@ -34,6 +33,7 @@ export enum Routes {
   endpoints = '/endpoints',
   swagger = '/swagger',
   parseUsers = '/users/parse',
+  parseExternalUsers = '/users/parseExternalUsers',
   getUsers = '/users/all',
 }
 
@@ -51,5 +51,4 @@ export interface RouterPayload {
   app: Express
   view: Setting
   swagger: Setting
-  database: Database
 }

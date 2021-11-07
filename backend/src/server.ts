@@ -2,10 +2,8 @@ import { routes } from './routes'
 import { API_PREFIX, PORT } from './tools/environment'
 import { loggerWithDate } from './tools/logger'
 import { initExpress } from './tools/setup'
-import { initDatabaseConnection } from './database/setup'
-import { Database } from './database/types'
 
-const initServer = async (database: Database) => {
+const initServer = async () => {
   initExpress(
     {
       bodyParser: {
@@ -48,8 +46,7 @@ const initServer = async (database: Database) => {
       port: parseInt(PORT, 10),
     },
     routes,
-    database,
   )
 }
 
-initDatabaseConnection(initServer)
+initServer()

@@ -1,5 +1,6 @@
 import { UserRepository } from './repositories/user'
 
-export interface Database {
+export interface Repository {
   user: UserRepository
+  isMock?: boolean
 }
